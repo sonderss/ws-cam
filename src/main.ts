@@ -4,6 +4,6 @@ import { WsAdapter } from './ws.adapter';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useWebSocketAdapter(new WsAdapter(app)); // 使用我们的适配器
-  await app.listen(3020);
+  await app.listen(7000);
 }
 bootstrap();
