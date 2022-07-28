@@ -22,4 +22,23 @@ export class EventsGateway {
 
     return { event: 'hello2', data: data };
   }
+
+  @SubscribeMessage('msgClient')
+  msgclient(
+    @MessageBody() data: any,
+    @ConnectedSocket() client: WebSocket,
+  ): any {
+    console.log('接收到的数据', data);
+    let timer = null;
+    // 开始推数据
+    timer = setInterval(() => {
+      client.send(JSON.stringify({ event: 'msgClient', data: data }));
+    }, 1000);
+    if (data === 2) {
+      clearInterval(timer);
+      return client.send(
+        JSON.stringify({ event: 'msgClient', data: '推送关闭' }),
+      );
+    }
+  }
 }
