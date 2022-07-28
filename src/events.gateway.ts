@@ -29,16 +29,13 @@ export class EventsGateway {
     @ConnectedSocket() client: WebSocket,
   ): any {
     console.log('接收到的数据', data);
-    let timer = null;
-    // 开始推数据
-    timer = setInterval(() => {
-      client.send(JSON.stringify({ event: 'msgClient', data: data }));
-    }, 1000);
     if (data === 2) {
-      clearInterval(timer);
       return client.send(
         JSON.stringify({ event: 'msgClient', data: '推送关闭' }),
       );
     }
+    // 开始推数据
+    client.send(JSON.stringify({ event: 'msgClient', data: data }));
+    return;
   }
 }
