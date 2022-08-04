@@ -16,7 +16,6 @@ export class WsAdapter implements WebSocketAdapter {
   // eslint-disable-next-line @typescript-eslint/ban-types
   bindClientConnect(server, callback: Function) {
     console.log('ws bindClientConnect, server:\n', server);
-
     server.on('connection', callback);
   }
   bindMessageHandlers(
@@ -27,7 +26,6 @@ export class WsAdapter implements WebSocketAdapter {
     process: (data: any) => Observable<any>,
   ) {
     console.log('[waAdapter]有新的连接进来');
-
     fromEvent(client, 'message')
       .pipe(
         mergeMap((data) =>
